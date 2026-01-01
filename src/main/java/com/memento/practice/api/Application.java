@@ -1,10 +1,23 @@
 package com.memento.practice.api;
 import java.time.LocalDate;
-import java.util.Objects;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 //make company contact class later? (company page, hiring/company email, hiring manager name)
 //probably not though since this is only going to be written once most likely
+
+//Entity allows to become a db schema
+@Entity
 public class Application {
+    //creates key
+    @Id
+    //autogenerates id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private Integer id;
     private LocalDate dateApplied;
     //company info
@@ -13,7 +26,8 @@ public class Application {
     //contact info for individual you message  throughout the process
     private String hiringEmail;
     private String hiringManagerName;
-    //application status
+    //application status (this annotation sets the enum to the string value instead of an integer)
+    @Enumerated(EnumType.STRING)
     private ApplicationStatus status;
     private Integer interviewRound;
 
