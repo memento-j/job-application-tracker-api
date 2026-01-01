@@ -17,7 +17,7 @@ public class Application {
     //creates key
     @Id
     //autogenerates id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDate dateApplied;
     //company info

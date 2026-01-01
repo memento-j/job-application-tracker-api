@@ -1,5 +1,28 @@
+# ( docker exec -it postgres-spring-boot bash ) to go into db server and view
+# psql -U (username)
+# \c (db name) to connect to db
+# \d (table name) to view table
+
 ### get example
 GET http://localhost:8080/
 
-###
+### get all applications
 GET http://localhost:8080/api/v1/applications
+
+### get by id
+GET http://localhost:8080/api/v1/applications/1
+
+### tests adding new application
+#must have one eempty line between the content type  and request body
+POST http://localhost:8080/api/v1/applications
+Content-Type: application/json
+
+{
+    "dateApplied"  : "2026-01-01",
+    "companyName" : "practimateai",
+    "companyPage" : "practimateai.com",
+    "hiringEmail" : "gaslightmyself@gmail.com",
+    "hiringManagerName" : "Memento",
+    "status" : "APPLIED",
+    "interviewRound": 1
+}

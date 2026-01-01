@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
+
 //this handles all of the business logic
 @Service
 public class ApplicationService {
@@ -20,7 +22,23 @@ public class ApplicationService {
         return applicationRepository.findAll();
     }
 
-    public void addNewApplication(Application application) {
+    public Application getApplicationById(Integer id) {
+        if (Id == null) {
+            throw new IllegalArgumentException("Id must not be null");
+        }
 
+        return applicationRepository.findById(id)
+            //throws error if not found along with the error message
+            .orElseThrow(() -> new EntityNotFoundException(
+                    "Application not found with id " + id
+            ));
+    }
+
+    //checks if not null and adds
+    public void insertNewApplication(Application application) {
+        if (application == null) {
+            throw new IllegalArgumentException("Application must not be null");
+        }
+        applicationRepository.save(application);
     }
 }

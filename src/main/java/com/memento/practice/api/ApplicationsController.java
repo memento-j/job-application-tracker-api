@@ -1,10 +1,14 @@
 package com.memento.practice.api;
-import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 //put the path of the route here
@@ -23,6 +27,17 @@ public class ApplicationsController {
     @GetMapping
     public List<Application> getApplications() {
         return applicationService.getAllApplications();
+    }
+
+    //uses path parameters 
+    @GetMapping("{id}")
+    public Application getApplicationById(@PathVariable Integer id) {
+        return applicationService.getApplicationById(id);
+    }
+
+    @PostMapping
+    public void  addNewApplication(@RequestBody Application application) {
+        applicationService.insertNewApplication(application);
     }
 
 
