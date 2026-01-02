@@ -1,4 +1,4 @@
-package com.memento.practice.api;
+package com.memento.practice.api.models;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -13,7 +13,7 @@ import jakarta.persistence.Id;
 
 //Entity allows to become a db schema
 @Entity
-public class Application {
+public class JobApplication {
     //creates key
     @Id
     //autogenerates id
@@ -28,21 +28,21 @@ public class Application {
     private String hiringManagerName;
     //application status (this annotation sets the enum to the string value instead of an integer)
     @Enumerated(EnumType.STRING)
-    private ApplicationStatus status;
+    private JobApplicationStatus status;
     private Integer interviewRound;
 
     //default construstor 
-    public Application() {
+    public JobApplication() {
     }
 
-    public Application(
+    public JobApplication(
         Integer id,
         LocalDate dateApplied,
         String companyName,
         String companyPage,
         String hiringEmail,
         String hiringManagerName,
-        ApplicationStatus status,
+        JobApplicationStatus status,
         Integer interviewRound
     ) {
         this.id = id;
@@ -103,11 +103,11 @@ public class Application {
         this.hiringManagerName = hiringManagerName;
     }
 
-    public ApplicationStatus getStatus() {
+    public JobApplicationStatus getStatus() {
         return this.status;
     }
 
-    public void setStatus(ApplicationStatus status) {
+    public void setStatus(JobApplicationStatus status) {
         this.status = status;
     }
 
@@ -122,8 +122,8 @@ public class Application {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Application)) return false;
-        Application that = (Application) o;
+        if (!(o instanceof JobApplication)) return false;
+        JobApplication that = (JobApplication) o;
         return id != null && id.equals(that.id);
     }
 

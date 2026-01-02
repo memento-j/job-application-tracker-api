@@ -23,6 +23,6 @@ Content-Type: application/json
     "companyPage" : "practimateai.com",
     "hiringEmail" : "gaslightmyself@gmail.com",
     "hiringManagerName" : "Memento",
-    "status" : "APPLIED",
+    "status" : "REJECTED",
     "interviewRound": 1
 }

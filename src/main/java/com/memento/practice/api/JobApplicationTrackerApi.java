@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class ApiApplication {
+public class JobApplicationTrackerApi {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiApplication.class, args);
+		SpringApplication.run(JobApplicationTrackerApi.class, args);
 	}
 
 	@GetMapping
 	public String tester() {
-		return "hey first test";
+		return "Job Application API (:";
 	}
 
 }
