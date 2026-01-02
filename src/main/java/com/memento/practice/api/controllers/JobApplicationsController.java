@@ -12,6 +12,8 @@ import com.memento.practice.api.services.JobApplicationService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
@@ -47,8 +49,12 @@ public class JobApplicationsController {
     //remember to include the pathvariable when its needed !
     @DeleteMapping("{id}")
     public void deleteApplication(@PathVariable Long  id) {
-        System.out.println(id + "\n\n\n");
         applicationService.deleteApplication(id);
+    }
+
+    @PutMapping("{id}")
+    public JobApplication updateApplication(@PathVariable Long id, @RequestBody JobApplication application) {
+        return applicationService.updateApplication(id, application);
     }
 
 }

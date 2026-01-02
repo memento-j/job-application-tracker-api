@@ -24,7 +24,7 @@ public class JobApplicationService {
         return applicationRepository.findAll();
     }
 
-    public JobApplication getApplicationById(Long  id) {
+    public JobApplication getApplicationById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id must not be null");
         }
@@ -42,12 +42,29 @@ public class JobApplicationService {
         applicationRepository.save(application);
     }
 
-    //
-    public void updateApplication(Long  id) {
+    public JobApplication updateApplication(Long id, JobApplication updatedApplication) {
+        if (id == null || updatedApplication == null) {
+            throw new IllegalArgumentException("Application and id must not be null");
+        }
+
+        //get the curreent application at that id already saved 
+        JobApplication savedApplication = applicationRepository.findById(id)
+            .orElseThrow(() -> new ApplicationNotFoundException(id));
+        //update the fields 
+        savedApplication.setDateApplied(updatedApplication.getDateApplied());
+        savedApplication.setCompanyName(updatedApplication.getCompanyName());
+        savedApplication.setCompanyPage(updatedApplication.getCompanyPage());
+        savedApplication.setHiringEmail(updatedApplication.getHiringEmail());
+        savedApplication.setHiringManagerName(updatedApplication.getHiringManagerName());
+        savedApplication.setStatus(updatedApplication.getStatus());
+        savedApplication.setInterviewRound(updatedApplication.getInterviewRound());
+
+        //save the new application to the db
+        return applicationRepository.save(savedApplication);
 
     }
 
-    public void deleteApplication(Long  id) {
+    public void deleteApplication(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id must not be null");
         }
