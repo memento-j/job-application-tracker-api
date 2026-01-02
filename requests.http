@@ -10,7 +10,7 @@ GET http://localhost:8080/
 GET http://localhost:8080/api/v1/applications
 
 ### get by id
-GET http://localhost:8080/api/v1/applications/1
+GET http://localhost:8080/api/v1/applications/3
 
 ### tests adding new application
 #must have one eempty line between the content type  and request body
@@ -23,6 +23,9 @@ Content-Type: application/json
     "companyPage" : "practimateai.com",
     "hiringEmail" : "gaslightmyself@gmail.com",
     "hiringManagerName" : "Memento",
-    "status" : "REJECTED",
-    "interviewRound": 1
+    "status" : "APPLIED",
+    "interviewRound": 0
 }
+
+###delete (by id)
+DELETE http://localhost:8080/api/v1/applications/2

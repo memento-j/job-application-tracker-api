@@ -18,7 +18,7 @@ public class JobApplication {
     @Id
     //autogenerates id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private LocalDate dateApplied;
     //company info
     private String companyName;
@@ -36,7 +36,7 @@ public class JobApplication {
     }
 
     public JobApplication(
-        Integer id,
+        Long id,
         LocalDate dateApplied,
         String companyName,
         String companyPage,
@@ -55,11 +55,11 @@ public class JobApplication {
         this.interviewRound = interviewRound;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

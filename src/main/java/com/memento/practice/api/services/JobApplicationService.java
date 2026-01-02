@@ -24,7 +24,7 @@ public class JobApplicationService {
         return applicationRepository.findAll();
     }
 
-    public JobApplication getApplicationById(Integer id) {
+    public JobApplication getApplicationById(Long  id) {
         if (id == null) {
             throw new IllegalArgumentException("Id must not be null");
         }
@@ -40,5 +40,22 @@ public class JobApplicationService {
             throw new IllegalArgumentException("Application must not be null");
         }
         applicationRepository.save(application);
+    }
+
+    //
+    public void updateApplication(Long  id) {
+
+    }
+
+    public void deleteApplication(Long  id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Id must not be null");
+        }
+        //checks if the application even exists, throws not found if not
+        if (!applicationRepository.existsById(id)) {
+            throw new ApplicationNotFoundException(id);
+        }
+
+        applicationRepository.deleteById(id);
     }
 }
