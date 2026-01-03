@@ -5,9 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 
 @Entity
+//renaming table to avoid reserved posgresql word (user)
+@Table(name = "app_user")
 public class User {
     //attributes using validation and setting rules
     @Id
