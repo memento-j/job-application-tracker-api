@@ -12,10 +12,12 @@ import com.memento.practice.api.user.UserRepository;
 public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public void signupUser(SignupRequest request) {
@@ -34,6 +36,12 @@ public class AuthService {
 
         //now save to the db
         userRepository.save(newUser);
+    }
+
+    //return jwt on user login
+    public String loginUser() {
+
+        return null;
     }
 
 }
