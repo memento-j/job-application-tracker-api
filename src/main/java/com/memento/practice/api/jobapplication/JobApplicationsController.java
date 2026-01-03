@@ -1,14 +1,15 @@
-package com.memento.practice.api.controllers;
+package com.memento.practice.api.jobapplication;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.memento.practice.api.models.JobApplication;
-import com.memento.practice.api.services.JobApplicationService;
+import com.memento.practice.api.jobapplication.models.JobApplication;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +43,10 @@ public class JobApplicationsController {
     }
 
     @PostMapping
-    public void addNewApplication(@RequestBody JobApplication application) {
+    public ResponseEntity<Void> addNewApplication(@RequestBody JobApplication application) {
         applicationService.insertNewApplication(application);
+        //build finalizes response, response entity is http response wrapper in spring
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     //remember to include the pathvariable when its needed !

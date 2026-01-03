@@ -1,5 +1,7 @@
-package com.memento.practice.api.models;
+package com.memento.practice.api.jobapplication.models;
 import java.time.LocalDate;
+
+import com.memento.practice.api.jobapplication.enums.JobApplicationStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

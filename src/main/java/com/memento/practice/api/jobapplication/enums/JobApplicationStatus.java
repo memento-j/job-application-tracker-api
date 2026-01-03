@@ -1,4 +1,4 @@
-package com.memento.practice.api.models;
+package com.memento.practice.api.jobapplication.enums;
 
 public enum JobApplicationStatus {
     APPLIED,
