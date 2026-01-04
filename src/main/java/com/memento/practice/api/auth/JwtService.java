@@ -25,11 +25,14 @@ public class JwtService {
 
     public String generateToken(User user) {
         return Jwts.builder()
+            //unique identifier used for the subject claim (in this case it's the email)
             .setSubject(user.getEmail())
+            //custom claim that stores the user id, can add more info here as well if needed
             .claim("userId", user.getId())
             .setIssuedAt(new Date())
             //1 hour
             .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+            //signs the jwt using the secret key and provides the signing algorithm
             .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
             .compact();
     }

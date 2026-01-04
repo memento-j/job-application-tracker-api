@@ -3,8 +3,10 @@ package com.memento.practice.api.auth;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.memento.practice.api.auth.dto.LoginRequest;
 import com.memento.practice.api.auth.dto.SignupRequest;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -31,24 +33,22 @@ public class AuthController {
     }
     
     @PostMapping("/signup")
-    public ResponseEntity<Void> signup(@Valid @RequestBody SignupRequest request) {
-        authService.signupUser(request);
+    public ResponseEntity<Void> signup(@Valid @RequestBody SignupRequest request, HttpServletResponse response) {
+        authService.signupUser(request, response);
         //build finalizes response, response entity is http response wrapper in spring (201 staatus creeted)
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return entity;
+    public ResponseEntity<Void> login(@Valid @RequestBody LoginRequest request, HttpServletResponse response) {
+        authService.loginUser(request, response);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/logout")
-    public String logout(@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return entity;
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        authService.logout(response);
+        return ResponseEntity.ok().build();
     }
     
     

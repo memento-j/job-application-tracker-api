@@ -4,7 +4,7 @@ REST API to help track and manage my job applications while getting practice wit
 
 ## Technologies Used
 
-[Maven 4.0](https://maven.apache.org/index.html)
+[Maven 4.0](https://maven.apache.org/index.html)<br/>
 [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
 
 **Backend**
