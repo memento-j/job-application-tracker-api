@@ -1,4 +1,4 @@
-package com.memento.practice.api.user;
+package com.memento.practice.api.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

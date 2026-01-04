@@ -1,11 +1,12 @@
-package com.memento.practice.api.jobapplication;
+package com.memento.practice.api.services;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.memento.practice.api.exceptions.ApplicationNotFoundException;
-import com.memento.practice.api.jobapplication.models.JobApplication;
+import com.memento.practice.api.models.JobApplication;
+import com.memento.practice.api.repositories.JobApplicationRepository;
 
 //this handles all of the business logic
 @Service

@@ -1,10 +1,10 @@
-package com.memento.practice.api.auth;
+package com.memento.practice.api.services;
 
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
-import com.memento.practice.api.user.User;
+import com.memento.practice.api.models.User;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;

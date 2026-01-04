@@ -1,10 +1,11 @@
-package com.memento.practice.api.auth;
+package com.memento.practice.api.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.memento.practice.api.auth.dto.LoginRequest;
-import com.memento.practice.api.auth.dto.SignupRequest;
+import com.memento.practice.api.dtos.LoginRequest;
+import com.memento.practice.api.dtos.SignupRequest;
+import com.memento.practice.api.services.AuthService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
