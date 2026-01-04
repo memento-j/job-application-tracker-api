@@ -2,7 +2,6 @@ package com.memento.practice.api.services;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
-import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +11,7 @@ import com.memento.practice.api.exceptions.InvalidCredentialsException;
 import com.memento.practice.api.exceptions.UserAlreadyExistsException;
 import com.memento.practice.api.models.User;
 import com.memento.practice.api.repositories.UserRepository;
+import com.memento.practice.api.security.JwtGenerator;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -19,9 +19,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+    private final JwtGenerator jwtService;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtGenerator jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;

@@ -1,4 +1,4 @@
-package com.memento.practice.api.services;
+package com.memento.practice.api.security;
 
 import java.util.Date;
 
@@ -13,11 +13,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 @Service
-public class JwtService {
+public class JwtGenerator {
 
     private final String SECRET_KEY;
 
-    public JwtService() {
+    public JwtGenerator() {
         //load dotenv and read JWT_SECRET once when the service is instantiated
         Dotenv dotenv = Dotenv.load();
         this.SECRET_KEY = dotenv.get("JWT_SECRET");
