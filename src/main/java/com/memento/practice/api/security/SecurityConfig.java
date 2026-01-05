@@ -25,22 +25,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            //enables csrf protection
-            //creates a one of a kind  token that is sent with thee request  to prevent attacks
-            .csrf(csrf -> csrf
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            )
             //tells spring security to not use http sessions (im using jwt so i want stateless so nothing is stored)
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-            //allows authorization to all auth routes
+            //doesnt require authorization from auth routes.
+            //then requires auth  from all othere routes
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
-                .anyRequest().permitAll()   
+                .requestMatchers("/api/v1/auth/**").permitAll()
+                .anyRequest().authenticated()  
             )
             //adding created jwt  filter to the filter chain
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+            //enables csrf protection for all non-auth routes (csrf tokens  are meant to protect authenticated ations)
+            //creates a one of a kind token that is sent with the authorized request to prevent attacks
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/api/v1/auth/**")
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            );
             
 
         return http.build();
