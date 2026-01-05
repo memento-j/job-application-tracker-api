@@ -1,6 +1,6 @@
 # Job Applicaiton Tracker API
 
-REST API to help track and manage my job applications while getting practice with Spring Boot Development.
+REST API to help track and manage my job applications while getting practice with Spring Boot development and managing a local PostgreSQL database.
 
 ## Technologies Used
 
@@ -11,6 +11,7 @@ REST API to help track and manage my job applications while getting practice wit
 - Spring Boot
 - JWT for stateless authentication
 - BCrypt for password hashing
+- Hibernate ORM
 
 **Database**
 - PostgreSQL
