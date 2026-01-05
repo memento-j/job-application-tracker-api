@@ -3,6 +3,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,12 +27,16 @@ public class JobApplication {
     private Long id;
     //lazy means user object is not loaded from the db unless i access it explicitly
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    //prevents serialization of the user (because i do not want the user info in the json returned)
     @JsonIgnore
     private User user;
+    //dates
+    @Column(nullable = false)
     private LocalDate dateApplied;
     private LocalDate followupDate;
     //company info
+    @Column(nullable = false)
     private String companyName;
     private String companyPage;
     //contact info for individual you message  throughout the process
@@ -58,6 +63,8 @@ public class JobApplication {
         this.status = status;
         this.interviewRound = interviewRound;
     }
+
+    //getters and setters
 
     public LocalDate getFollowupDate() {
         return this.followupDate;
