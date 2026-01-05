@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -39,10 +38,8 @@ public class SecurityConfig {
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             //enables csrf protection for all non-auth routes (csrf tokens  are meant to protect authenticated ations)
             //creates a one of a kind token that is sent with the authorized request to prevent attacks
-            .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/v1/auth/**")
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            );
+            //however disabling it for this
+            .csrf(csrf -> csrf.disable());
             
 
         return http.build();

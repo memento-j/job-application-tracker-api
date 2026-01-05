@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.memento.practice.api.models.JobApplication;
+import com.memento.practice.api.models.User;
 import com.memento.practice.api.services.JobApplicationService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,32 +35,32 @@ public class JobApplicationsController {
     //json is returned automatically, no need to encode or decode
     //objects into json (power of springboot o:)
     @GetMapping
-    public List<JobApplication> getApplications() {
-        return applicationService.getAllApplications();
+    public List<JobApplication> getApplications(@AuthenticationPrincipal User currentUser) {
+        return applicationService.getUserApplications(currentUser);
     }
 
     //uses path parameters 
     @GetMapping("{id}")
-    public JobApplication getApplicationById(@PathVariable Long  id) {
-        return applicationService.getApplicationById(id);
+    public JobApplication getApplicationById(@PathVariable Long id, @AuthenticationPrincipal User currentUser) {
+        return applicationService.getUserApplicationById(id, currentUser);
     }
 
     @PostMapping
-    public ResponseEntity<Void> addNewApplication(@RequestBody JobApplication application) {
-        applicationService.insertNewApplication(application);
+    public ResponseEntity<Void> addNewApplication(@RequestBody JobApplication application, @AuthenticationPrincipal User currentUser) {
+        applicationService.insertNewApplication(application, currentUser);
         //build finalizes response, response entity is http response wrapper in spring
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    //remember to include the pathvariable when its needed !
-    @DeleteMapping("{id}")
-    public void deleteApplication(@PathVariable Long  id) {
-        applicationService.deleteApplication(id);
+    @PutMapping("{id}")
+    public JobApplication updateApplication(@PathVariable Long id, @AuthenticationPrincipal User currentUser, @RequestBody JobApplication application) {
+        return applicationService.updateApplication(id, currentUser, application);
     }
 
-    @PutMapping("{id}")
-    public JobApplication updateApplication(@PathVariable Long id, @RequestBody JobApplication application) {
-        return applicationService.updateApplication(id, application);
+    //remember to include the pathvariable when its needed !
+    @DeleteMapping("{id}")
+    public void deleteApplication(@PathVariable Long id, @AuthenticationPrincipal User currentUser) {
+        applicationService.deleteApplication(id, currentUser);
     }
 
 }

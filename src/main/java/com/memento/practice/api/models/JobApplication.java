@@ -1,12 +1,17 @@
 package com.memento.practice.api.models;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 //make company contact class later? (company page, hiring/company email, hiring manager name)
 //probably not though since this is only going to be written once most likely
@@ -19,7 +24,13 @@ public class JobApplication {
     //autogenerates id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //lazy means user object is not loaded from the db unless i access it explicitly
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
     private LocalDate dateApplied;
+    private LocalDate followupDate;
     //company info
     private String companyName;
     private String companyPage;
@@ -35,24 +46,33 @@ public class JobApplication {
     public JobApplication() {
     }
 
-    public JobApplication(
-        Long id,
-        LocalDate dateApplied,
-        String companyName,
-        String companyPage,
-        String hiringEmail,
-        String hiringManagerName,
-        JobApplicationStatus status,
-        Integer interviewRound
-    ) {
+    public JobApplication(Long id, User user, LocalDate dateApplied, LocalDate followupDate, String companyName, String companyPage, String hiringEmail, String hiringManagerName, JobApplicationStatus status, Integer interviewRound) {
         this.id = id;
+        this.user = user;
         this.dateApplied = dateApplied;
+        this.followupDate = followupDate;
         this.companyName = companyName;
         this.companyPage = companyPage;
         this.hiringEmail = hiringEmail;
         this.hiringManagerName = hiringManagerName;
         this.status = status;
         this.interviewRound = interviewRound;
+    }
+
+    public LocalDate getFollowupDate() {
+        return this.followupDate;
+    }
+
+    public void setFollowupDate(LocalDate followupDate) {
+        this.followupDate = followupDate;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

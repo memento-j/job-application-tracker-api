@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.memento.practice.api.exceptions.ApplicationNotFoundException;
 import com.memento.practice.api.models.JobApplication;
+import com.memento.practice.api.models.User;
 import com.memento.practice.api.repositories.JobApplicationRepository;
 
 //this handles all of the business logic
@@ -18,61 +19,68 @@ public class JobApplicationService {
     }
 
     //usually you have a DTO (data transfer objects) so you dont end up exposing the table (in case there is sensitive info)
-    public List<JobApplication> getAllApplications() {
+    public List<JobApplication> getUserApplications(User user) {
+        if (user == null || user.getId() == null) {
+            throw new IllegalArgumentException("One of these are null: User or UserId");
+        }
         //the repository includes many methods for database interaction 
         // (writes sql behind the scenes to do the operation for us)
-        return applicationRepository.findAll();
+        return applicationRepository.findByUserId(user.getId());
     }
 
-    public JobApplication getApplicationById(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id must not be null");
+    public JobApplication getUserApplicationById(Long applicationId, User user) {
+        if (applicationId == null || user == null || user.getId() == null) {
+            throw new IllegalArgumentException("One of these are null: Application Id, User, or UserId");
         }
 
-        return applicationRepository.findById(id)
+        return applicationRepository.findByIdAndUserId(applicationId, user.getId())
             //throws custom exception if not found
-            .orElseThrow(() -> new ApplicationNotFoundException(id));
+            .orElseThrow(() -> new ApplicationNotFoundException(applicationId));
     }
 
     //checks if not null and adds
-    public void insertNewApplication(JobApplication application) {
+    public void insertNewApplication(JobApplication application, User user) {
         if (application == null) {
             throw new IllegalArgumentException("Application must not be null");
         }
+        application.setUser(user);
         applicationRepository.save(application);
     }
 
-    public JobApplication updateApplication(Long id, JobApplication updatedApplication) {
-        if (id == null || updatedApplication == null) {
-            throw new IllegalArgumentException("Application and id must not be null");
+    //update an existing application
+    public JobApplication updateApplication(Long existingApplicationId, User user, JobApplication updatedApplication) {
+        if (existingApplicationId == null || updatedApplication == null || user == null) {
+            throw new IllegalArgumentException("Updated application, exisiting appplicaiton id, must not be null");
         }
 
         //get the curreent application at that id already saved 
-        JobApplication savedApplication = applicationRepository.findById(id)
-            .orElseThrow(() -> new ApplicationNotFoundException(id));
+        JobApplication existingApplication = applicationRepository.findByIdAndUserId(existingApplicationId, user.getId())
+            .orElseThrow(() -> new ApplicationNotFoundException(existingApplicationId));
+
         //update the fields 
-        savedApplication.setDateApplied(updatedApplication.getDateApplied());
-        savedApplication.setCompanyName(updatedApplication.getCompanyName());
-        savedApplication.setCompanyPage(updatedApplication.getCompanyPage());
-        savedApplication.setHiringEmail(updatedApplication.getHiringEmail());
-        savedApplication.setHiringManagerName(updatedApplication.getHiringManagerName());
-        savedApplication.setStatus(updatedApplication.getStatus());
-        savedApplication.setInterviewRound(updatedApplication.getInterviewRound());
+        existingApplication.setDateApplied(updatedApplication.getDateApplied());
+        existingApplication.setFollowupDate(updatedApplication.getFollowupDate());
+        existingApplication.setCompanyName(updatedApplication.getCompanyName());
+        existingApplication.setCompanyPage(updatedApplication.getCompanyPage());
+        existingApplication.setHiringEmail(updatedApplication.getHiringEmail());
+        existingApplication.setHiringManagerName(updatedApplication.getHiringManagerName());
+        existingApplication.setStatus(updatedApplication.getStatus());
+        existingApplication.setInterviewRound(updatedApplication.getInterviewRound());
 
         //save the new application to the db
-        return applicationRepository.save(savedApplication);
+        return applicationRepository.save(existingApplication);
 
     }
 
-    public void deleteApplication(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id must not be null");
+    public void deleteApplication(Long applicationId, User user) {
+        if (applicationId == null || user == null || user.getId() == null) {
+            throw new IllegalArgumentException("One of these are null: Application Id, User, and UserId");
         }
         //checks if the application even exists, throws not found if not
-        if (!applicationRepository.existsById(id)) {
-            throw new ApplicationNotFoundException(id);
+        if (!applicationRepository.existsByIdAndUserId(applicationId, user.getId())) {
+            throw new ApplicationNotFoundException(applicationId);
         }
-
-        applicationRepository.deleteById(id);
+        //only delete application if the cuurrent user's id matches the user in the application
+        applicationRepository.deleteByIdAndUserId(applicationId, user.getId());
     }
 }
