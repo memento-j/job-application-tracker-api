@@ -58,6 +58,8 @@ public class JobApplicationService {
             .orElseThrow(() -> new ApplicationNotFoundException(existingApplicationId));
 
         //update the fields 
+        existingApplication.setJobTitle(updatedApplication.getJobTitle());
+        existingApplication.setJobSource(updatedApplication.getJobSource());
         existingApplication.setDateApplied(updatedApplication.getDateApplied());
         existingApplication.setFollowupDate(updatedApplication.getFollowupDate());
         existingApplication.setCompanyName(updatedApplication.getCompanyName());

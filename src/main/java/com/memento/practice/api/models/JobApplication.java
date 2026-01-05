@@ -31,6 +31,9 @@ public class JobApplication {
     //prevents serialization of the user (because i do not want the user info in the json returned)
     @JsonIgnore
     private User user;
+    @Column(nullable = false)
+    private String jobTitle;
+    private String jobSource;
     //dates
     @Column(nullable = false)
     private LocalDate dateApplied;
@@ -51,9 +54,12 @@ public class JobApplication {
     public JobApplication() {
     }
 
-    public JobApplication(Long id, User user, LocalDate dateApplied, LocalDate followupDate, String companyName, String companyPage, String hiringEmail, String hiringManagerName, JobApplicationStatus status, Integer interviewRound) {
+
+    public JobApplication(Long id, User user, String jobTitle, String jobSource, LocalDate dateApplied, LocalDate followupDate, String companyName, String companyPage, String hiringEmail, String hiringManagerName, JobApplicationStatus status, Integer interviewRound) {
         this.id = id;
         this.user = user;
+        this.jobTitle = jobTitle;
+        this.jobSource = jobSource;
         this.dateApplied = dateApplied;
         this.followupDate = followupDate;
         this.companyName = companyName;
@@ -65,6 +71,22 @@ public class JobApplication {
     }
 
     //getters and setters
+
+    public String getJobSource() {
+        return this.jobSource;
+    }
+
+    public void setJobSource(String jobSource) {
+        this.jobSource = jobSource;
+    }
+
+    public String getJobTitle() {
+        return this.jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
     public LocalDate getFollowupDate() {
         return this.followupDate;
