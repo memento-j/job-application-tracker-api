@@ -10,7 +10,7 @@ GET http://localhost:8080/
 GET http://localhost:8080/api/v1/applications
 
 ### get by id
-GET http://localhost:8080/api/v1/applications/3
+GET http://localhost:8080/api/v1/applications/6
 
 ### tests adding new application
 #must have one eempty line between the content type  and request body
@@ -18,7 +18,10 @@ POST http://localhost:8080/api/v1/applications
 Content-Type: application/json
 
 {
-    "dateApplied"  : "2026-01-01",
+    "jobTitle": "Developer",
+	"jobSource": "LinkedIn",
+	"dateApplied"  : "2026-01-01",
+	"followupDate"  : "2026-01-08",
     "companyName" : "practimateai",
     "companyPage" : "practimateai.com",
     "hiringEmail" : "gaslightmyself@gmail.com",
@@ -32,7 +35,10 @@ PUT http://localhost:8080/api/v1/applications/3
 Content-Type: application/json
 
 {
-    "dateApplied"  : "2026-01-01",
+    "jobTitle": "Developer",
+	"jobSource": "LinkedIn",
+	"dateApplied"  : "2026-01-01",
+	"followupDate"  : "2026-01-08",
     "companyName" : "practimateai",
     "companyPage" : "practimateai.com",
     "hiringEmail" : "gaslightmyself@gmail.com",
