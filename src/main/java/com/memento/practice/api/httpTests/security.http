@@ -2,3 +2,55 @@
 
 ### Logout of anything currently signedin
 POST http://localhost:8080/api/v1/auth/logout
+
+
+###
+### Try to access protected routes (all return 403)
+###
+
+# get all of the signed in user's applications
+GET http://localhost:8080/api/v1/applications
+
+# get by id
+GET http://localhost:8080/api/v1/applications/6
+
+POST http://localhost:8080/api/v1/applications
+Content-Type: application/json
+
+{
+    "jobTitle": "Developer",
+	"jobSource": "LinkedIn",
+	"dateApplied"  : "2026-01-01",
+	"followupDate"  : "2026-01-08",
+    "companyName" : "practimateai",
+    "companyPage" : "practimateai.com",
+    "hiringEmail" : "gaslightmyself@gmail.com",
+    "hiringManagerName" : "Memento",
+    "status" : "APPLIED",
+    "interviewRound": 0
+}
+
+#update (put) by id
+PUT http://localhost:8080/api/v1/applications/6
+Content-Type: application/json
+
+{
+    "jobTitle": "Developer",
+	"jobSource": "LinkedIn",
+	"dateApplied"  : "2026-01-01",
+	"followupDate"  : "2026-01-08",
+    "companyName" : "practimateai",
+    "companyPage" : "practimateai.com",
+    "hiringEmail" : "gaslightmyself@gmail.com",
+    "hiringManagerName" : "Memento",
+    "status" : "REJECTED",
+    "interviewRound": 1
+}
+
+#delete (by id)
+DELETE http://localhost:8080/api/v1/applications/6
+
+
+###
+### Now sign into one account and try to perform crud operations on applications that don't belong to them
+###

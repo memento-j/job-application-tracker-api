@@ -6,7 +6,7 @@
 ### get example
 GET http://localhost:8080/
 
-### get all applications
+### get all of the signed in user's applications
 GET http://localhost:8080/api/v1/applications
 
 ### get by id

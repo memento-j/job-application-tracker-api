@@ -1,6 +1,8 @@
 # Job Applicaiton Tracker API
 
-REST API to help track and manage my job applications while getting practice with Spring Boot development and managing a local PostgreSQL database.
+REST API to help track and manage job applications. Built to practice Spring Boot backend development and working with a local PostgreSQL database.
+
+---
 
 ## Technologies Used
 
@@ -17,21 +19,28 @@ REST API to help track and manage my job applications while getting practice wit
 - PostgreSQL
 - Docker for local database development
 
+---
 
 ## API Overview
 
 This backend exposes a REST API for tracking job applications.
-Authentication is handled using JWT and they are stored in HttpOnly cookies.
+Authentication is handled using JWT stored in HttpOnly cookies.
+
+Example requests are provided using `.http` files for manual testing
 
 ### Base URL
 `/api/v1`
+
+---
 
 ### Authentication
 | Method | Route | Description |
 |------|------|------------|
 | POST | /auth/signup | Create a new user and issue JWT |
 | POST | /auth/login | Authenticate and issue JWT |
-| POST | /auth/logout | Invalidate authentication cookie |
+| POST | /auth/logout | Clear authentication cookie |
+
+---
 
 ### Job Applications (Must Be Authenticated)
 | Method | Route | Description |
